@@ -1,0 +1,26 @@
+.navbar-nav .nav-link {
+    margin-right: 60px; /* Adjust the margin to increase or decrease the gap */
+}
+
+.nav-link{
+    font-size: 20px;
+    color: black;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.spanw{
+    color: red;
+}
+
+.navbar-brand {
+    margin-left: 50px !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .navbar-brand {
+        margin-left: 0px !important;
+    }
+  }
+/* .kothu{
+    margin-right: 500px !important;
+} */

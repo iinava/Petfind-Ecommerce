@@ -1,0 +1,50 @@
+.texti {
+    text-align: center;
+  }
+
+  .ser {
+    position: absolute;
+    margin-left: 40%;
+
+  }
+
+
+
+
+  @media only screen and (max-width: 600px) {
+    .ser {
+      position: absolute;
+      margin-left: 10%;
+    }
+  }
+
+  
+  .rev{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+}
+
+.re ul li{
+    justify-content: center;
+ list-style: none;
+ text-align: left;
+}
+.re ul li i{
+    position: relative;
+    margin-left: 40%;
+}
+.textli{
+    width: 400px;
+}
+.re ul li h1{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+   
+    font-size: 25px;
+}
+.re ul li p{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 15px;
+}

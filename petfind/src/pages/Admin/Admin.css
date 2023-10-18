@@ -1,0 +1,12 @@
+.uu{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+
+.card-img-top{
+    height: 200px !important;
+    width: 100% !important;
+}
