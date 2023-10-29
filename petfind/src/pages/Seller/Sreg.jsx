@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { Toaster,toast } from 'react-hot-toast'
 
 export default function Sreg() {
 
@@ -88,6 +89,7 @@ const dataadd=(e)=>{
 
 if (Object.keys(prob).length===0&&issubmit){
   axios.post('http://127.0.0.1:8000/api/sellerregister',input).then((res)=>{
+    toast.success("register sucess")
     console.log(res);
     navigate("/log")
   }).catch((err)=>{
@@ -116,12 +118,13 @@ if (Object.keys(prob).length===0&&issubmit){
 
 
   return (
-    <div>   <div> <div>
+    <div>  <Toaster/> <div> <div>
     <center>
       <br />
       <div className="wrapper">
         <div className="title">
        list your  pets
+       <p>signup as a seller</p>
         </div>
         <form action="#">
           <div className="field">

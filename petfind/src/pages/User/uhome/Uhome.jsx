@@ -4,6 +4,8 @@ import '../uhome/home.css'
 import View from '../../../components/View/View'
 
 export default function Uhome() {
+
+    
   return (
     <div>
         <div className="navigation">

@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
-from .models import log,user,seller,pet,booking
-from petapp.serializers import userserializer,logserializer,sellerserializer,petserializer,bookingserializer
+from .models import log,user,seller,pet,booking,Payment
+from petapp.serializers import userserializer,logserializer,sellerserializer,petserializer,bookingserializer,paymentserializer
 from django.conf import settings
 from .Sendmail import sendmail
 from datetime import date
@@ -57,7 +57,7 @@ class userregister(GenericAPIView):
             }
         )
         print(serializer)
-        sendmail(email,"user")
+        # sendmail(email,"user")
         if serializer.is_valid():
             print('hi')
             serializer.save()
@@ -89,7 +89,7 @@ class sellerregister(GenericAPIView):
         userstatus="1"
         
         if(log.objects.filter(uname=uname)):
-            return Response({'message':'Duplicate email found'},status.HTTP_400_BAD_REQUEST)
+            return Response({'message':'Duplicate username found'},status.HTTP_400_BAD_REQUEST)
         else:
             serializer_login=self.serializer_class_login(data={'uname':uname,'password':password,'role':role})    
             # ,'role':role}
@@ -116,7 +116,7 @@ class sellerregister(GenericAPIView):
             }
         )
         print(serializer)
-        sendmail(email,"Seller")
+        # sendmail(email,"Seller")
         if serializer.is_valid():
             print('hi')
             serializer.save()
@@ -302,8 +302,8 @@ class addpet(GenericAPIView):
         species=request.data.get("species")
         breed=request.data.get("breed")
         cost=request.data.get("cost")
-        quantity=request.data.get("quantity")
         age=request.data.get("age")
+        quantity=request.data.get("quantity")
         image=request.data.get("image")
         description=request.data.get("description")
         sellerid=request.data.get('sellerid')
@@ -359,6 +359,21 @@ class singlepetview(GenericAPIView):
         queryset=pet.objects.get(pk=id)
         serializer=petserializer(queryset)
         return Response({'data':serializer.data,'messgae':'single pet view','success':True},status=status.HTTP_200_OK)
+
+
+# -----------------------seller prof view-----------------------------------
+class singlesellerview(GenericAPIView):
+    def get(self,request,id):
+        queryset=seller.objects.get(pk=id)
+        serializer=sellerserializer(queryset)
+        return Response({'data':serializer.data,'messgae':'single seller view','success':True},status=status.HTTP_200_OK)
+
+        # ____________________________________________________single user ceiw__
+class singleuserview(GenericAPIView):
+    def get(self,request,id):
+        queryset=user.objects.get(pk=id)
+        serializer=userserializer(queryset)
+        return Response({'data':serializer.data,'messgae':'single user view','success':True},status=status.HTTP_200_OK)
 
 
 
@@ -469,10 +484,12 @@ class bookingAPIView(GenericAPIView):
                 for i in data2:
                     print(i)
                     username=i['uname']
+                    uadress=i['adress']
                 data3=seller.objects.all().filter(id=sellerid).values()
                 for i in data3:
                     print(i)
                     sellername=i['uname']
+                    
 
 
 
@@ -483,7 +500,7 @@ class bookingAPIView(GenericAPIView):
                     
 
 
-                serializer = self.serializer_class(data= {'username':username,'sellername':sellername,'sellerid':sellerid,'userid':userid,'petid':product,'quantity':bkquantity,'cost':cost,'name':name,'age':age,'image':pet_image,'breed':breed,'booking_date':booking_date,'description':description,'bookingstatus':bookingstatus})
+                serializer = self.serializer_class(data= {'username':username,'sellername':sellername,'adress':uadress,'sellerid':sellerid,'userid':userid,'petid':product,'quantity':bkquantity,'cost':cost,'name':name,'age':age,'image':pet_image,'breed':breed,'booking_date':booking_date,'description':description,'bookingstatus':bookingstatus})
                 print(serializer)
                 
                 if serializer.is_valid():
@@ -501,7 +518,7 @@ class bookingAPIView(GenericAPIView):
 
 
             
-class buyerviewbooking(GenericAPIView):
+class buyerviewbookingpending(GenericAPIView):
     serializer_class=bookingserializer
     def get(self,request,id):
         queryset=booking.objects.filter(userid=id,bookingstatus=0).values()
@@ -519,6 +536,14 @@ class buyerviewbooking(GenericAPIView):
             
             obj['image'] = settings.MEDIA_URL + str(obj['image'])
         return Response({'data':queryset,'message':'all pet booking  set' ,'success':1},status=status.HTTP_200_OK)
+# ____________________________________________________singlebookingview___________________________
+class buyerviewsinglebooking(GenericAPIView):
+    def get(self,request,id):
+        queryset=booking.objects.get(pk=id)
+        serializer=bookingserializer(queryset)
+        return Response({'data':serializer.data,'messgae':'single booking view','success':True},status=status.HTTP_200_OK)
+
+  
        
 # __________________________________________________________________seller viewing bookings_______________________________
 class sellerviewbooking(GenericAPIView):
@@ -555,3 +580,85 @@ class SellerApprove_orderAPIView(GenericAPIView):
         book.save()
         serializer = serializer_class(book)
         return Response({'data':serializer.data,'message':'seller Approved order', 'success':True}, status=status.HTTP_200_OK)
+
+        # __________________________________payment___________________________________________
+
+        
+class paymentapi(GenericAPIView):
+    serializer_class = paymentserializer
+
+    def post(self, request):
+        
+
+        
+        userid = request.data.get('userid')
+        sellerid=request.data.get("sellerid")
+        bookingid=request.data.get('bookingid')
+        amount=request.data.get('amount')
+        paymentdate=str(date.today())
+        paymentstatus="0"
+        payments = Payment.objects.filter(userid=userid, bookingid=bookingid)
+        if payments.exists():
+            return Response({'message':'Aldready paid','success':False}, status=status.HTTP_400_BAD_REQUEST)
+
+        else:
+
+
+            data2=user.objects.all().filter(id=userid).values()
+
+            for i in data2:
+                
+                print(i)
+                username=i['uname']
+
+            data4=booking.objects.all().filter(id=bookingid).values()
+
+            for i in data4:
+                
+                print(i)
+                petname=i['name']
+                quantity=i['quantity']
+                breed=i['breed']
+            data3=seller.objects.all().filter(id=sellerid).values()
+            for i in data3:
+                print(i)
+                sellername=i['uname']
+
+
+            book = booking.objects.get(pk=bookingid)
+            book.bookingstatus = 2
+            book.save()
+
+
+
+            serializer = self.serializer_class(data= {'username':username,'sellername':sellername,'sellerid':sellerid,'userid':userid,'bookingid':bookingid,'amount':amount,'paymentdate':paymentdate,'paymentstatus':paymentstatus,'petname':petname,'quantity':quantity,'breed':breed})
+            print(serializer)
+                    
+            if serializer.is_valid():
+                print("This payment is working")
+                serializer.save()
+                return Response({'data':serializer.data,'message':'payment  added successfully', 'success':True}, status = status.HTTP_201_CREATED)
+
+            return Response({'data':serializer.errors,'message':'Invalid','success':False}, status=status.HTTP_400_BAD_REQUEST)
+                
+
+
+
+# __________________________seller view payments_______________________________________________________________
+class sellerviewpayment(GenericAPIView):
+    serializer_class=paymentserializer
+    def get(self,request,id):
+        queryset=Payment.objects.filter(sellerid=id).values()
+        return Response({'data':queryset,'message':'all pet booking  set' ,'success':1},status=status.HTTP_200_OK)
+
+class adminviewpayments(GenericAPIView):
+    serializer_class=paymentserializer
+    def get(self,request):
+    
+        queryset=Payment.objects.all()
+        
+        if(queryset.count()>0):
+            serializer=paymentserializer(queryset,many=True)
+            return Response({'data':serializer.data,'message':'all payment data  set' ,'success':1},status=status.HTTP_200_OK)
+        else:
+            return Response({'data':'no datas avaialable ','success':0},status=status.HTTP_201_CREATED)    

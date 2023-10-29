@@ -57,7 +57,8 @@ class pet(models.Model):
     age=models.CharField(max_length=30,null=True)
     cost=models.CharField(max_length=30,null=True)
     quantity=models.CharField(max_length=30,null=True)
-
+   
+    
     image=models.ImageField(upload_to="images",null=True,blank=True)
     description=models.CharField(max_length=120,null=True)
     sellerid=models.ForeignKey(seller, on_delete=models.CASCADE)
@@ -72,6 +73,7 @@ class booking(models.Model):
     sellerid=models.ForeignKey(seller,on_delete=models.CASCADE)
     # -------
     username=models.CharField(max_length=30,null=True)
+    adress=models.CharField(max_length=30,null=True)
     sellername=models.CharField(max_length=30,null=True)
     # ------
     name=models.CharField(max_length=30,null=True)
@@ -83,6 +85,28 @@ class booking(models.Model):
     quantity=models.CharField(max_length=30,null=True)
     booking_date = models.CharField(max_length=100)  
     bookingstatus=models.CharField(max_length=100,null=True,blank=True)
+
+
+    def __str__(self):
+        return self.username
+
+        
+class Payment(models.Model):
+    userid =models.ForeignKey(user,on_delete=models.CASCADE)
+    sellerid=models.ForeignKey(seller,on_delete=models.CASCADE)
+    bookingid=models.ForeignKey(booking,on_delete=models.CASCADE)
+
+    # -------
+    username=models.CharField(max_length=30,null=True)
+    sellername=models.CharField(max_length=30,null=True)
+    # ____
+    petname=models.CharField(max_length=30,null=True)
+    quantity=models.CharField(max_length=30,null=True)
+    breed=models.CharField(max_length=30,null=True)
+    # ------
+    amount=models.CharField(max_length=30,null=True)
+    paymentdate = models.CharField(max_length=100)  
+    paymentstatus=models.CharField(max_length=100,null=True,blank=True)
 
 
     def __str__(self):

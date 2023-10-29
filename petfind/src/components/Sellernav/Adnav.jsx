@@ -14,7 +14,10 @@ export default function Adnav() {
             <a class="nav-link "  href="#">see  listing</a>
           </li> 
           <li class="nav-item ">
-            <a class="nav-link pos "  href="/sorder"> orders  </a>
+            <a class="nav-link pos "  href="/sorder"> Bookings  </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link pos "  href="/spayment"> Payments  </a>
           </li>
           {/* <li class="nav-item ">
             <a class="nav-link "  href="#"> add    </a>
@@ -24,7 +27,7 @@ export default function Adnav() {
                   seller  <i class="fa-solid fa-user fa-lg"></i>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="/editp">Edit </a></li>
+                  <li><a class="dropdown-item" href="/editsellerprofile">Edit </a></li>
 
                   <li><hr class="dropdown-divider" /></li>
                   <li><a class="dropdown-item" href="#">Logout</a></li>

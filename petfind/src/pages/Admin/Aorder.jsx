@@ -1,7 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useState } from 'react'
+import axios from 'axios'
 import AAnav from '../../components/Adnav/AAnav'
 
 export default function Aorder() {
+    const [order, setorder] = useState({})
+
+    useEffect(() => {
+        axios.get("http://127.0.0.1:8000/api/adminviewpayments").then((response) => {
+            console.log("all petdata",response);
+            setorder(response.data.data)
+      
+          }).catch((err) => {
+            console.log(err);
+          })
+  
+    }, [])
+    
     return (
         <div>
             <AAnav />
@@ -9,36 +24,44 @@ export default function Aorder() {
             <br /><br />
 
 
-            <div className="dii">
-                <table class="table container table-dark table-hover">
-                    <thead>
-                        <tr >
-                            <th scope="col">#</th>
-                            <th scope="col">user</th>
-                            <th scope="col">seller</th>
-                            <th scope="col">product</th>
-                            <th scope="col">price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                            <td>@fat</td>
-                        </tr>
-                       
-                    </tbody>
-                </table>
-            </div>
+            <div>
+        <br /><br /><table>
+    <thead>
+      <tr>
+        <th scope="col">User</th>
+        <th scope="col">petname</th>
+        <th scope="col">breed</th>
+        <th scope="col">quantity</th>
+        <th scope="col">Amount</th>
+        <th scope="col">date</th>
+      </tr>
+    </thead>
+    <tbody>
+    {order[0] ?
+            <>
+
+
+              {order?.map((data, key) => (   
+      <tr>
+
+        <td data-label="User">{data.username}</td>
+        <td data-label="petname">{data.petname}</td>
+        <td data-label="breed">{data.breed}</td>
+        <td data-label="quantity">{data.quantity}</td>
+        <td data-label="Amount">{data.amount}</td>
+        <td data-label="date">{data.paymentdate}</td>
+      </tr>
+        ))}
+        </>
+        : <td>loading...................</td>
+        }
+      
+     
+      
+     
+    
+    </tbody>
+  </table></div>
         </div>
     )
 }

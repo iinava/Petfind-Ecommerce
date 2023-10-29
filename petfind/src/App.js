@@ -18,6 +18,10 @@ import Sorder from './pages/Seller/Sorder';
 import Aseller from './pages/Admin/Aseller';
 import Cart from './pages/User/cart/Cart';
 import Vieww from './components/View/Vieww';
+import Payment from './pages/User/Payment/Payment';
+import Accorder from './pages/User/order/Aorder';
+import Spaymentview from './pages/Seller/Spaymentview';
+import Userprofedit from './pages/User/Userprofedit';
 
 function App() {
   return (
@@ -30,17 +34,21 @@ function App() {
    <Route path='/sreg' element={<Sreg/>}></Route>
    <Route path='/buy/:id' element={<Buy/>}></Route>
    <Route path='/shome' element={<Seller/>}></Route>
-   <Route path='/editp' element={<Profe/>}></Route>
+   <Route path='/editsellerprofile' element={<Profe/>}></Route>
+   <Route path='/edituserprofile' element={<Userprofedit/>}></Route>
    <Route path='/order' element={<Order/>}></Route>
    <Route path='/sedit/:id' element={<Sedit/>}></Route>
    {/* <Route path="/sedit/:productId" component={Sedit} /> */}
    <Route path='/ahome' element={<Adhome/>}></Route>
    <Route path='/aproduct' element={<Aproduct/>}></Route>
    <Route path='/aorder' element={<Aorder/>}></Route>
+   <Route path='/Accorder' element={<Accorder/>}></Route>
    <Route path='/sorder' element={<Sorder/>}></Route>
    <Route path='/aseller' element={<Aseller/>}></Route>
    <Route path='/cart' element={<Cart/>}></Route>
    <Route path='/mister' element={<Vieww/>}></Route>
+   <Route path='/payment/:id' element={<Payment/>}></Route>
+   <Route path='/spayment' element={<Spaymentview/>}></Route>
  
 
   

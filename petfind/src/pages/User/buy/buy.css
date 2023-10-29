@@ -4,7 +4,21 @@
     padding: 0;
     box-sizing: border-box;
 } */
+.cont{
+    width: 90%;
 
+}
+.fit{
+    object-fit: cover;
+}
+
+.flex{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+     /* gap: 10px; */
+   justify-content: space-around;
+}
 .felx{
     /* margin-left: 15px; */
     row-gap: 15px;
@@ -15,6 +29,12 @@
 
 }
 
+ .bstat{
+    color: rgba(255, 0, 0, 0.699);
+    text-align: center;
+    justify-content: center;
+    text-transform: uppercase;
+ }
 
 
 
@@ -41,6 +61,7 @@
     display: flex;
     flex-direction: row;
 }
+
 
 .card-left {
     background: #030303d8;
@@ -123,7 +144,7 @@ p {
 @media only screen and (max-width: 1000px) {
     .payment-card {
         flex-direction: column;
-        width: auto;
+        width: 100%;
     }
 
     .card-left {
@@ -140,4 +161,21 @@ p {
         padding: 0.5rem 3rem 3rem 2rem;
         border-radius: 0;
     }
+
+    .small{
+        margin-top: 15px;
+        height: 200px;
+        width: auto;
+        margin-left: 30%;
+    }
+}
+
+
+.bod{
+    /* border: #030303 solid 3px; */
+    text-align: justify;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.card-title{
+    text-align: center;
 }

@@ -41,6 +41,7 @@ export default function Seller() {
     formData.append('breed', input.breed)
     formData.append('cost', input.cost)
     formData.append('age', input.age)
+    formData.append('quantity', input.quantity)
     formData.append('image', input.image)
     formData.append('description', input.description)
     formData.append('sellerid', input.sellerid)
@@ -64,6 +65,7 @@ export default function Seller() {
       document.getElementById("breed").value = "";
       document.getElementById("cost").value = "";
       document.getElementById("age").value = "";
+      document.getElementById("quantity").value = "";
       document.getElementById("image").value = "";
       document.getElementById("description").value = "";
 
@@ -75,6 +77,7 @@ export default function Seller() {
         breed: '',
         cost: '',
         age: '',
+        quantity: '',
         image: null,
         description: '',
         sellerid: sellerid,
@@ -217,6 +220,10 @@ export default function Seller() {
                       <div className="field">
                         <input type="text" required id='age' name='age' onChange={handleChange} />
                         <label>age</label>
+                      </div>
+                      <div className="field">
+                        <input type="text" required id='quantity' name='quantity' onChange={handleChange} />
+                        <label>quantity</label>
                       </div>
 
                       <div className="field">

@@ -64,6 +64,10 @@ const change =(e)=>{
         <input type="text" required name='age' value={form.age} onChange={inputchange} />
         <label> Edit age</label>
       </div>
+      <div className="field">
+        <input type="text" required name='quantity' value={form.quantity} onChange={inputchange} />
+        <label> Edit quantity</label>
+      </div>
       {/* <div className="field">
           <input type="text" required name='phone' />
           <label>Phone number</label>

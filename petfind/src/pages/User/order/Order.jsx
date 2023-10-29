@@ -1,84 +1,67 @@
-import React from 'react'
+import React, { useEffect,useState } from 'react'
+
 import '../buy/buy.css'
+import axios from 'axios'
 import hik from '../buy/dog.jpg'
 import Usenav from '../../../components/userNav/Usenav'
 export default function Order() {
+   const uid =localStorage.getItem("userid")
+   const [first, setfirst] = useState([])
+   console.log(uid);
+
+    useEffect(()=>{
+        axios.get(`http://127.0.0.1:8000/api/buyerviewbookingpending/${uid}`).then((response) => {
+          console.log("ther is nothing",response);
+          setfirst(response.data.data)
+      
+      }).catch((err) => {
+        console.log(err);
+      })
+      }, [])
+
+    //   const deletesh = (bid) => {
+    //     axios.delete(`http://127.0.0.1:8000/api/deletebooking/${bid}`).then((response)=>{
+    //       console.log(response);
+    //       console.log("deleted");
+    //     })}
     return (
 
         <div>
 <Usenav/>
 <br /><br /><br /> 
+<center>pending orderes</center>
+<br /><br />
+  
+
+
+            <div className="flex">
 
 
 
 
-            <div className="felx">
+  {first[0] ?
+            <>
 
 
+              {first?.map((data, key) => (   
 
+<div class="card" style={{ width: '18rem' }}>
+  <img src={`/petb/${data.image}`}class="card-img-top fit" alt=".../"/>
+  <div class="card-body">
+    <h2>{data.name}</h2>
+    <p class="card-text">{data.description}</p>
+    <p class="card-text">{data.cost}</p>
+    <p class="card-text">{data.breed}</p>
+    <p class="card-text"> count:{data.quantity}</p>
+    <button >cancel</button>
+  </div>
+</div>
 
-
-
-                <div class="card mb-3" style={{ maxWidth: '540px' }}>
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src={hik} class="img-fluid rounded-start" alt="..." />
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Dog name</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <p class="card-text"><small class="text-body-secondary">285$</small></p>
-                                <button type="button" class="btn btn-dark">cancel</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card mb-3" style={{ maxWidth: '540px' }}>
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src={hik} class="img-fluid rounded-start" alt="..." />
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Dog name</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <p class="card-text"><small class="text-body-secondary">285$</small></p>
-                                <button type="button" class="btn btn-dark">cancel</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card mb-3" style={{ maxWidth: '540px' }}>
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src={hik} class="img-fluid rounded-start" alt="..." />
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Dog name</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <p class="card-text"><small class="text-body-secondary">285$</small></p>
-                                <button type="button" class="btn btn-dark">cancel</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card mb-3" style={{ maxWidth: '540px' }}>
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src={hik} class="img-fluid rounded-start" alt="..." />
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Dog name</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <p class="card-text"><small class="text-body-secondary">285$</small></p>
-                                <button type="button" class="btn btn-dark">cancel</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                ))}
+                </>
+                : <td>loading...................</td>
+                }
+               
                 </div>
 
 

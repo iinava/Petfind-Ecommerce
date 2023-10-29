@@ -3,10 +3,12 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
+    gap: 15px !important;
 }
 
 
 .card-img-top{
     height: 200px !important;
     width: 100% !important;
+    object-fit: cover !important;
 }

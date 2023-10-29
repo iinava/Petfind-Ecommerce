@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import user,log,seller,pet,booking
+from .models import user,log,seller,pet,booking,Payment
 
 
 
@@ -40,4 +40,18 @@ class bookingserializer(serializers.ModelSerializer):
         model=booking
         fields='__all__'
     def Create (self,validated_data):
-        return booking.objects.create(**validated_data)                
+        return booking.objects.create(**validated_data)     
+
+
+
+
+
+
+
+
+class paymentserializer(serializers.ModelSerializer):
+    class Meta:
+        model=Payment 
+        fields='__all__'
+    def Create  (self,validated_data):
+        return booking.objects.create(**validated_data)     

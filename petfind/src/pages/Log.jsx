@@ -1,7 +1,10 @@
 import axios from 'axios';
 import React from 'react'
-import 'react-toastify/dist/ReactToastify.css'
-import { ToastContainer,toast } from 'react-toastify'
+import swal from 'sweetalert';
+import toast, { Toaster } from 'react-hot-toast';
+
+// import 'react-toastify/dist/ReactToastify.css'import swal from 'sweetalert';
+// import { ToastContainer,toast } from 'react-toastify'
 import { useState } from 'react';
 import { Navigate,useNavigate } from 'react-router-dom';
 
@@ -29,6 +32,8 @@ export default function Log() {
          localStorage.setItem('role', JSON.stringify(response.data.data.role))
          localStorage.setItem('uname', JSON.stringify(response.data.data.uname))
          localStorage.setItem('password', JSON.stringify(response.data.data.password))
+         swal("Good job", "login successful", "success");
+         // toast.success("login succesful")
 
 
          console.log(response.data.data.login_id);
@@ -41,19 +46,25 @@ export default function Log() {
             navigate("/uhome")
             console.log("user logged successfully")
          }
+         else if (response.data.data.role == 'admin') {
+            navigate("/ahome")
+            console.log("user logged successfully")
+         }
       }).catch((error) => {
          console.log(error);
-         toast.error({
-            title: "Username or Password is invalid",
-            position: 'top-center',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'colored'
-         });
+         toast.error("username or password is incorrect")
+         // swal("Username or password incorrect");
+         // toast.error({
+         //    title: "Username or Password is invalid",
+         //    position: 'top-center',
+         //    autoClose: 5000,
+         //    hideProgressBar: false,
+         //    closeOnClick: true,
+         //    pauseOnHover: true,
+         //    draggable: true,
+         //    progress: undefined,
+         //    theme: 'colored'
+         // });
 
 
 
@@ -66,7 +77,7 @@ export default function Log() {
 
 
    return (
-      <div> <div>
+      <div>  <Toaster /><div>
          <br />
          <center>
             <div className="wrapper">

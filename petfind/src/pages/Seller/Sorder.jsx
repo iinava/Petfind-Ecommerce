@@ -35,10 +35,31 @@ const accepting =(bid)=>{
 })
 }
 
+const deletesh = (bid) => {
+  axios.delete(`http://127.0.0.1:8000/api/deletebooking/${bid}`).then((response)=>{
+    console.log(response);
+    console.log("deleted");
+  })
+  
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <div>
-      <center> <h1>Order Details</h1></center>
+      <center> <h1 className='h'>Order Details</h1></center>
      
      <br />
       <div className="dii">
@@ -71,11 +92,11 @@ const accepting =(bid)=>{
       <td data-label="cost">{data.cost}</td>
       <td data-label="quantity">{data.quantity}</td>
       <td data-label="accept"><a href=""><button className='btn btn-light' onClick={(e)=>   {  e.preventDefault() ;accepting(data.id);}}> confirm</button></a></td>
-      <td data-label="reject"><a href=""><button className='btn btn-light'> cancel</button></a></td>
+      <td data-label="reject"><a href=""><button className='btn btn-light' onClick={(e)=> {e.preventDefault();deletesh(data.id) }} > cancel</button></a></td>
     </tr>
       ))}
       </>
-      : <td>loading...................</td>
+      : <td>No  bookings</td>
       }
     
   </tbody>
