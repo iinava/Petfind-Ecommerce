@@ -3,8 +3,10 @@ import Nav from '../components/Navbar/Nav'
 import '../pages/User/uhome/home.css'
 import View from '../components/View/View'
 import nay from '../components/View/patti.jpg'
+// import { useNavigate } from 'react-router-dom'
 
 export default function Guest() {
+    // const navigate=useNavigate();
   return (
     <div>
 
@@ -22,6 +24,7 @@ export default function Guest() {
             <form class="d-flex" role="search">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
               <button class="btn btn-outline-dark" type="submit">Search</button>
+              {/* <button class="btn btn-outline-dark" onClick={navigate('/log')} >click</button> */}
             </form>
           </div>
         </nav>

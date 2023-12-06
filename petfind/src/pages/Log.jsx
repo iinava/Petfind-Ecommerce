@@ -16,7 +16,6 @@ export default function Log() {
    })
    console.log(input);
    const inputchange = (event) => {
-      // const { name, value } = event.target
 
       const name = event.target.name
       const value = event.target.value
@@ -33,7 +32,6 @@ export default function Log() {
          localStorage.setItem('uname', JSON.stringify(response.data.data.uname))
          localStorage.setItem('password', JSON.stringify(response.data.data.password))
          swal("Good job", "login successful", "success");
-         // toast.success("login succesful")
 
 
          console.log(response.data.data.login_id);
@@ -53,18 +51,7 @@ export default function Log() {
       }).catch((error) => {
          console.log(error);
          toast.error("username or password is incorrect")
-         // swal("Username or password incorrect");
-         // toast.error({
-         //    title: "Username or Password is invalid",
-         //    position: 'top-center',
-         //    autoClose: 5000,
-         //    hideProgressBar: false,
-         //    closeOnClick: true,
-         //    pauseOnHover: true,
-         //    draggable: true,
-         //    progress: undefined,
-         //    theme: 'colored'
-         // });
+        
 
 
 

@@ -1,7 +1,8 @@
 import React, { useEffect,useState } from 'react'
 import '../Payment/Pay.css'
 import axios from 'axios';
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import toast, { Toaster } from 'react-hot-toast';
 export default function Payment() {
  const {id} = useParams();
 
@@ -22,7 +23,7 @@ const [bkstat, setbkstat] = useState(null)
 //   amount:Amount
 // })
 // console.log(first);
-
+const navigate=useNavigate();
 useEffect(()=>{
   console.log("useffect works");
   axios.get(`http://127.0.0.1:8000/api/buyerviewsinglebooking/${id}`).then((response) => {
@@ -49,10 +50,12 @@ const payment =(e)=>{
   .then((res) => {
     console.log("payment data have been added successfully");
     console.log(res);
+    navigate('/uhome')
   })
   .catch((err) => {
     console.log(err.response.data.message);
     setbkstat(err.response.data.message)
+    toast.error("you have aldready paid ")
     console.log("here is the  response",bkstat);
     console.log("payment not working");
   });
@@ -60,6 +63,7 @@ const payment =(e)=>{
 
   return (
     <div>
+        <Toaster />
     <div class="main">
       
     <div class="container">

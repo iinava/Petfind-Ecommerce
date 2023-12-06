@@ -4,6 +4,7 @@ class log(models.Model):
     
     password=models.CharField(max_length=30,unique=True)
     role=models.CharField(max_length=30,null=True)
+    
 
   
 

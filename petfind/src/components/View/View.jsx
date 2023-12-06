@@ -4,32 +4,50 @@ import nay from '../View/patti.jpg'
 import { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-export default function View() {
-  
+import { useDispatch, useSelector } from 'react-redux'
+import { productList } from '../../redux/slice/Productslice'
 
+export default function View({ first }) {
+  
+   const  dispatch=useDispatch()
+   const {productData,loading,error}=useSelector(state=>state.product)
+   console.log(productData,loading,error);
+
+   console.log(error);
     const navigate = useNavigate()
+
     const [form, setform] = useState({
 
     })
-    useEffect(() => {
-        axios.get("http://127.0.0.1:8000/api/allpetview").then((response) => {
-          console.log("ther is nothing");
-          // console.log(response);
-          setform(response.data.data)
-          // console.log(state);
+    // setform(first)
+    // useEffect(() => {
+    //     axios.get("http://127.0.0.1:8000/api/allpetview").then((response) => {
+    //       console.log("ther is nothing");
+    //       setform(response.data.data)
     
-        }).catch((err) => {
-          console.log(err);
-        })
-      }, [])
+    //     }).catch((err) => {
+    //       console.log(err);
+    //     })
+    //   }, [])
+
+    useEffect(()=>{
+      dispatch(productList())
+ 
+    },[])
+
+
+
+
+
+
       console.log(form);
   return (
     <div> <div class="cardsi">
-    {form[0] ?
+    {productData[0] ?
             <>
 
 
-              {form?.map((data, key) => (
+              {productData?.map((data, key) => (
     <div class="cardi">
         <ul>
             <li>

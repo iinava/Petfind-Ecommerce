@@ -1,8 +1,22 @@
 import React from 'react'
-
+import { useNavigate } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 export default function AAnav() {
+    const navigate = useNavigate();
+  const clearloc = (e) => {
+    e.preventDefault(); // Prevent the default anchor tag behavior
+
+    // Navigate to the login page before clearing localStorage
+    navigate('/log');
+
+    // Delay clearing localStorage and displaying the toast message
+    setTimeout(() => {
+      localStorage.clear();
+      toast.success("Logout successful");
+    }, 1000); // Delay for 1 second (adjust the delay as needed)
+  }
   return (
-    <div>
+    <div><Toaster />
     <nav class="navbar navbar-expand-lg bg-body-tertiary  bg-transparent">
         <div class="container-fluid">
             <a class="navbar-brand fw-bolder" href="#">petfinder <span>:()</span></a>
@@ -22,6 +36,9 @@ export default function AAnav() {
                     </li>
                     <li class="nav-item">
                         <a class="nav-link pos " href="/aorder">See orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <button className='btn btn-dark' onClick={clearloc}>Log out</button>
                     </li>
 
 

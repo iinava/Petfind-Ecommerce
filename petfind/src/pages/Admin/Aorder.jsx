@@ -53,7 +53,7 @@ export default function Aorder() {
       </tr>
         ))}
         </>
-        : <td>loading...................</td>
+        : <td>no orders...................</td>
         }
       
      
